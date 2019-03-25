@@ -60,14 +60,14 @@ bool checkWinningPosition(int rows, int cols, char board[rows][cols], int start_
   count = 0;
   int a;
 
-  if (start_row >= 4) {
+  if (start_row >= 3) {
     for (a = 1; a < 4; a++) {
       if (piece == board[start_row - a][start_col]) count++;
       if (count == 3) return 1;
     }
   }
   count = 0;
-  if ((rows - start_row) >= 4) {
+  if ((rows - start_row) >= 3) {
     for (a = 1; a < 4; a++) {
       if (piece == board[start_row + a][start_col]) count++;
       if (count == 3) return 1;
@@ -81,9 +81,37 @@ bool checkWinningPosition(int rows, int cols, char board[rows][cols], int start_
     }
   }
   count = 0;
-  if ((cols - start_col) >= 4) {
+  if ((cols - start_col) >= 3) {
     for (a = 1; a < 4; a++) {
       if (piece == board[start_row][start_col + a]) count++;
+      if (count == 3) return 1;
+    }
+  }
+  count = 0;
+  if ((start_row >= 3) && (start_col >= 3)) {
+    for (a = 1; a < 4; a++) {
+      if (piece == board[start_row - a][start_col - a]) count++;
+      if (count == 3) return 1;
+    }
+  }
+  count = 0;
+  if (((rows - start_row) >= 3) && ((cols - start_col) >= 3)) {
+    for (a = 1; a < 4; a++) {
+      if (piece == board[start_row + a][start_col + a]) count++;
+      if (count == 3) return 1;
+    }
+  }
+  count = 0;
+  if ((start_row >= 3) && ((cols - start_col) >= 3)) {
+    for (a = 1; a < 4; a++) {
+      if (piece == board[start_row - a][start_col + a]) count++;
+      if (count == 3) return 1;
+    }
+  }
+  count = 0;
+  if ((start_col >= 3) && ((rows - start_row) >= 3)) {
+    for (a = 1; a < 4; a++) {
+      if (piece == board[start_row + a][start_col - a]) count++;
       if (count == 3) return 1;
     }
   }
