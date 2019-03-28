@@ -71,14 +71,14 @@ int main(void) {
   int play_row;
   bool player;
   bool newGame;
-  int numMoves = 0;
   char exit;
 
   int rows, cols;
-  printf("Enter the number of rows: ");
+  printf("\n\t\t\tInitial Setup");
+  printf("\n\t\t      -----------------\n");
+  printf("\n\t\tEnter the number of rows: ");
   scanf("%d", &rows);
-  printf("\n");
-  printf("Enter the number of columns: ");
+  printf("\n\t\tEnter the number of columns: ");
   scanf("%d", &cols);
   printf("\n");
 
@@ -143,7 +143,6 @@ int main(void) {
             play_col--;
             play_row = placePiece(board, rows, cols, play_col);
             board[play_row][play_col] = 'x';
-            numMoves++;
             createBoardScreen(board, rows, cols);
             if (checkWinningPosition2(board, rows, cols) == -10) {
               playerWins = checkResults(playerWins, 'P');
@@ -174,19 +173,11 @@ int main(void) {
               }
               break;
             }
+
             printf("Computer thinking...\n");
-
-          //printf("%d", bestMove(rows, cols, temp));
-          //play_col = bestMove(rows, cols, temp);
-          //play_row = placePiece(rows, cols, temp, play_col);
-          //printf("%d ", play_row);
-          //board[play_row][play_col] = 'o';
-
-          //int bestScore = negamax(board, rows, cols, 1);
-            play_col = negamax(board, rows, cols, 1, -9999999, 9999999, numMoves);
+            play_col = columnDecider(board, rows, cols);
             play_row = placePiece(board, rows, cols, play_col);
             board[play_row][play_col] = 'o';
-            numMoves++;
             createBoardScreen(board, rows, cols);
             if (checkWinningPosition2(board, rows, cols) == 10) {
               compWins = checkResults(compWins, 'C');
@@ -309,24 +300,6 @@ int main(void) {
         }
         break;
       case 4:
-        freeArray(board, rows, cols);
-
-        printf("\nEnter new number of rows: ");
-        scanf("%d", &rows);
-        printf("\nEnter new number of columns: ");
-        scanf("%d", &cols);
-
-        char **board = (char **)malloc(rows * sizeof(char *));
-
-        int r;
-        for (r = 0; r < rows; r++) {
-          board[r] = (char *)malloc(cols * sizeof(char));
-        }
-
-        resetArray(board, rows, cols);
-
-        break;
-      case 5:
         return 0;
         break;
       default:
@@ -334,6 +307,8 @@ int main(void) {
         break;
       }
     }
+
+  freeArray(board, rows, cols);
 
   return 0;
 }

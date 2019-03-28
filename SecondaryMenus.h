@@ -16,7 +16,7 @@ void printStandingsScreen(bool isPvC, int stat1, int stat2, int draws) {
     else {
       printf("| Computer wins: %d |\n", stat2);
     }
-    if (stat1 < 10) {
+    if (draws < 10) {
       printf("| Draws: %d          |\n", draws);
     }
     else {
@@ -37,7 +37,7 @@ void printStandingsScreen(bool isPvC, int stat1, int stat2, int draws) {
     else {
       printf("| Player 2 wins: %d |\n", stat2);
     }
-    if (stat1 < 10) {
+    if (draws < 10) {
       printf("| Draws: %d          |\n", draws);
     }
     else {
@@ -48,32 +48,41 @@ void printStandingsScreen(bool isPvC, int stat1, int stat2, int draws) {
 }
 
 void printRecentStats(int p1W, int p2W, int ppDraws, int pW, int cW, int pcDraws) {
-  if ((p1W < 10) && (p2W < 10) && (ppDraws < 10) && (pW < 10) && (cW < 10) && (pcDraws < 10)) {
-    printf(" ____________________________________________ \n");
-    printf("|          Player vs. Player Stats           |\n");
+  printf(" ____________________________________________ \n");
+  printf("|          Player vs. Player Stats           |\n");
+  if (p1W < 10) {
     printf("| Player 1 Wins: %d                           |\n", p1W);
-    printf("| Player 2 Wins: %d                           |\n", p2W);
-    printf("| Draws: %d                                   |\n", ppDraws);
-    printf("|                                            |\n");
-    printf("|         Player vs. Computer Stats          |\n");
-    printf("| Player Wins: %d                             |\n", pW);
-    printf("| Computer Wins: %d                           |\n", cW);
-    printf("| Draws: %d                                   |\n", pcDraws);
-    printf("|____________________________________________|\n");
   }
   else {
-    printf(" _____________________________________________ \n");
-    printf("|          Player vs. Player Stats            |\n");
-    printf("| Player 1 Wins: %d                           |\n", p1W);
-    printf("| Player 2 Wins: %d                           |\n", p2W);
-    printf("| Draws: %d                                   |\n", ppDraws);
-    printf("|                                             |\n");
-    printf("|         Player vs. Computer Stats           |\n");
-    printf("| Player Wins: %d                             |\n", pW);
-    printf("| Computer Wins: %d                           |\n", cW);
-    printf("| Draws: %d                                   |\n", pcDraws);
-    printf("|_____________________________________________|\n");
+    printf("| Player 1 Wins: %d                          |\n", p1W);
   }
+  if (p2W < 10) {
+    printf("| Player 2 Wins: %d                           |\n", p2W);
+  }
+  else {
+    printf("| Player 2 Wins: %d                          |\n", p2W);
+  }
+  if (ppDraws < 10) {
+    printf("| Draws: %d                                   |\n", ppDraws);
+  }
+  else {
+    printf("| Draws: %d                                  |\n", ppDraws);
+  }
+  printf("|                                            |\n");
+  printf("|         Player vs. Computer Stats          |\n");
+  if (pW < 10) {
+    printf("| Player Wins: %d                             |\n", pW);
+  }
+  else {
+    printf("| Player Wins: %d                            |\n", pW);
+  }
+  if (cW < 10) {
+    printf("| Computer Wins: %d                           |\n", cW);
+  }
+  else {
+    printf("| Draws: %d                                  |\n", pcDraws);
+  }
+  printf("|____________________________________________|\n");
 }
 
 void printPlayAgainScreen() {

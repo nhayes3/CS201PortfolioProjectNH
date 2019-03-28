@@ -17,7 +17,7 @@ void printLogo() {
 
 void createMenuScreen() {
   printf(" ____________________________ \n");
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 8; i++) {
     switch(i) {
       case 1:
         printf("| 1: Play vs. Computer       |\n");
@@ -29,14 +29,12 @@ void createMenuScreen() {
         printf("| 3: Recent Stats            |\n");
         break;
       case 7:
-        printf("| 4: Change Board Size       |\n");
-        break;
-      case 9:
-        printf("| 5: Quit Program            |\n");
+        printf("| 4: Quit Program            |\n");
         break;
       default:
         printf("|                            |\n");
     }
   }
   printf("|____________________________|\n");
+  printf("\nSelection: ");
 }
