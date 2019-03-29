@@ -30,17 +30,21 @@ void freeArray(char** board, int rows, int cols) {
 
 bool playAgainResponse() {
   char answer;
-  response:
-  scanf("%c", &answer);
-  if (answer == 'Y' || answer == 'y') {
-    return 1;
-  }
-  else if (answer == 'N' || answer == 'n') {
-    return 0;
-  }
-  else {
-    printf("Invalid selection: use Y/N to respond.\n");
-    goto response;
+  getchar();
+  answer = getchar();
+  while (1) {
+    if (answer == 'Y' || answer == 'y') {
+      return 1;
+    }
+    else if (answer == 'N' || answer == 'n') {
+      return 0;
+    }
+    else {
+      if (answer == '\n') {
+        printf("Invalid selection: use Y/N to respond.\n");
+      }
+      answer = getchar();
+    }
   }
   return 0; //unreachable
 }
@@ -54,14 +58,46 @@ int main(void) {
   bool newGame;
   char exit;
   int corner;
+  char buffer;
 
   int rows, cols;
   printf("\n\t\t\tInitial Setup");
   printf("\n\t\t      -----------------\n");
+  printf("Note: The board will be printed differently for large board sizes.\n");
   printf("\n\t\tEnter the number of rows: ");
-  scanf("%d", &rows);
+  enterrows:
+  if (scanf("%d", &rows) != 1) {
+    while (1) {
+      buffer = getchar();
+      if (buffer == '\n') {
+        printf("\t    Please enter a number greater than 3.\n");
+        printf("\n\t\tEnter the number of rows: ");
+        goto enterrows;
+      }
+    }
+  }
+  if (rows < 4) {
+    printf("\t    Please enter a number greater than 3.\n");
+    printf("\n\t\tEnter the number of rows: ");
+    goto enterrows;
+  }
   printf("\n\t\tEnter the number of columns: ");
-  scanf("%d", &cols);
+  entercols:
+  if (scanf("%d", &cols) != 1) {
+    while (1) {
+      buffer = getchar();
+      if (buffer == '\n') {
+        printf("\t    Please enter a number greater than 3.\n");
+        printf("\n\t\tEnter the number of columns: ");
+        goto entercols;
+      }
+    }
+  }
+  if (cols < 4) {
+    printf("\t    Please enter a number greater than 3.\n");
+    printf("\n\t\tEnter the number of columns: ");
+    goto entercols;
+  }
   printf("\n");
 
   char **board = (char **)malloc(rows * sizeof(char *));
@@ -103,11 +139,13 @@ int main(void) {
 
   createMenuScreen();
 
-  int menu_select;
+  char menu_select;
+  getchar();
+  menu_select = getchar();
+  printf("\n");
   while (1) {
-    scanf("%d", &menu_select);
     switch(menu_select) {
-      case 1:
+      case '1':
         newgame_1:
         if ((rows > 100) || (cols > 100)) {
           printf("\nNote: After the first move, the board will be\n");
@@ -116,16 +154,40 @@ int main(void) {
         else if ((rows > 40) || (cols > 40)) {
           printf("1 2\n3 4\n");
           printf("Enter the segment of the board to print: ");
-          scanf("%d", &corner);
+          select_1:
+          if (scanf("%d", &corner) != 1) {
+            while (1) {
+              buffer = getchar();
+              if (buffer == '\n') {
+                printf("Please enter a number between 1 and 4.\n");
+                printf("Enter the segment of the board to print: ");
+                goto select_1;
+              }
+            }
+          }
+          if ((corner != 1) && (corner != 2) && (corner != 3) && (corner != 4)) {
+            printf("Please enter a number between 1 and 4.\n");
+            printf("Enter the segment of the board to print: ");
+            goto select_1;
+          }
           printSegmentedBoard(board, rows, cols, corner);
         }
         else {
           createBoardScreen(board, rows, cols);
         }
         while (1) {
-          reselect_c:
           printf("What column would you like to play in?");
-          scanf("%d", &play_col);
+          reselect_c:
+          if (scanf("%d", &play_col) != 1) {
+            while (1) {
+              buffer = getchar();
+              if (buffer == '\n') {
+                printf("Please enter a number between 0 and %d.\n", cols);
+                printf("What column would you like to play in?");
+                goto reselect_c;
+              }
+            }
+          }
           if ((play_col < 0) || (play_col > cols)) {
             printf("That is not a valid column to play in.\n");
             goto reselect_c;
@@ -219,15 +281,57 @@ int main(void) {
           if (((rows > 40) && (rows <= 100)) || ((cols > 40) && (cols <= 100))) {
             printf("1 2\n3 4\n");
             printf("Enter the segment of the board to print: ");
-            scanf("%d", &corner);
+            select_2:
+            if (scanf("%d", &corner) != 1) {
+              while (1) {
+                buffer = getchar();
+                if (buffer == '\n') {
+                  printf("Please enter a number between 1 and 4.\n");
+                  printf("Enter the segment of the board to print: ");
+                  goto select_2;
+                }
+              }
+            }
+            if ((corner != 1) && (corner != 2) && (corner != 3) && (corner != 4)) {
+              printf("Please enter a number between 1 and 4.\n");
+              printf("Enter the segment of the board to print: ");
+              goto select_2;
+            }
             printSegmentedBoard(board, rows, cols, corner);
           }
         }
         break;
-      case 2:
+      case '2':
         newgame_2:
         player = 0;
-        createBoardScreen(board, rows, cols);
+        if ((rows > 100) || (cols > 100)) {
+          printf("\nNote: After the first move, the board will be\n");
+          printf("printed in a section around each move.\n\n");
+        }
+        else if ((rows > 40) || (cols > 40)) {
+          printf("1 2\n3 4\n");
+          printf("Enter the segment of the board to print: ");
+          select_3:
+          if (scanf("%d", &corner) != 1) {
+            while (1) {
+              buffer = getchar();
+              if (buffer == '\n') {
+                printf("Please enter a number between 1 and 4.\n");
+                printf("Enter the segment of the board to print: ");
+                goto select_3;
+              }
+            }
+          }
+          if ((corner != 1) && (corner != 2) && (corner != 3) && (corner != 4)) {
+            printf("Please enter a number between 1 and 4.\n");
+            printf("Enter the segment of the board to print: ");
+            goto select_3;
+          }
+          printSegmentedBoard(board, rows, cols, corner);
+        }
+        else {
+          createBoardScreen(board, rows, cols);
+        }
         while (1) {
           if (!player) {
             printf("Player 1's turn.\n");
@@ -235,9 +339,18 @@ int main(void) {
           else if (player) {
             printf("Player 2's turn.\n");
           }
-          reselect:
           printf("What column would you like to play in?");
-          scanf("%d", &play_col);
+          reselect:
+          if (scanf("%d", &play_col) != 1) {
+            while (1) {
+              buffer = getchar();
+              if (buffer == '\n') {
+                printf("Please enter a number between 0 and %d.\n", cols);
+                printf("What column would you like to play in?");
+                goto reselect;
+              }
+            }
+          }
           if ((play_col < 0) || (play_col > cols)) {
             printf("That is not a valid column to play in.\n");
             goto reselect;
@@ -254,7 +367,15 @@ int main(void) {
           else if (player) {
             board[play_row][play_col] = 'o';
           }
-          createBoardScreen(board, rows, cols);
+          if ((rows > 100) || (cols > 100)) {
+            printSectionedScreen(board, rows, cols, play_row, play_col);
+          }
+          else if ((rows > 40) || (cols > 40)) {
+            printSegmentedBoard(board, rows, cols, corner);
+          }
+          else {
+            createBoardScreen(board, rows, cols);
+          }
           if (checkWinningPosition2(board, rows, cols) == -10) {
             playerOneWins = checkResults(playerOneWins, '1');
             printStandingsScreen(0, playerOneWins, playerTwoWins, pvpDraws);
@@ -298,27 +419,55 @@ int main(void) {
             break;
           }
           player = !player;
+          if (((rows > 40) && (rows <= 100)) || ((cols > 40) && (cols <= 100))) {
+            printf("1 2\n3 4\n");
+            printf("Enter the segment of the board to print: ");
+            select_4:
+            if (scanf("%d", &corner) != 1) {
+              while (1) {
+                buffer = getchar();
+                if (buffer == '\n') {
+                  printf("Please enter a number between 1 and 4.\n");
+                  printf("Enter the segment of the board to print: ");
+                  goto select_4;
+                }
+              }
+            }
+            if ((corner != 1) && (corner != 2) && (corner != 3) && (corner != 4)) {
+              printf("Please enter a number between 1 and 4.\n");
+              printf("Enter the segment of the board to print: ");
+              goto select_4;
+            }
+            printSegmentedBoard(board, rows, cols, corner);
+          }
         }
         break;
-      case 3:
+      case '3':
         printRecentStats(memP1Wins, memP2Wins, memPPDraws, memPWins, memCWins, memPCDraws);
-        //getchar();
-        scanf("%c", &exit);
+        printf("Press E to exit.\n");
+        getchar();
+        exit = getchar();
         while (1) {
           if (exit == 'E' || exit == 'e') {
             goto newexec;
           }
           else {
-            printf("Invalid selection: use E to exit.\n");
-            scanf("%c", &exit);
+            if (exit == '\n') {
+              printf("Invalid selection: use E to exit.\n");
+            }
+            exit = getchar();
           }
         }
         break;
-      case 4:
+      case '4':
         return 0;
         break;
       default:
-        printf("That is not a valid selection!\n");
+        if (menu_select == '\n') {
+          printf("That is not a valid selection!\n");
+          printf("Selection: ");
+        }
+        menu_select = getchar();
         break;
       }
     }

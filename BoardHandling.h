@@ -195,26 +195,29 @@ void printSectionedScreen(char** board, int rows, int cols, int nearRow, int nea
   int i;
   int j;
   int k;
-  for (i = minCol; i < maxCol; i++) {
+  for (i = minCol; i <= maxCol; i++) {
     printf("____");
   }
   printf("_\n");
-  for (i = minRow; i < maxRow; i++) {
-    for (j = minRow; j < maxCol; j++) {
+  for (i = minRow; i <= maxRow; i++) {
+    for (j = minCol; j <= maxCol; j++) {
       printf("| %c ", board[i][j]);
     }
     printf("|\n");
-    for (k = minCol; k < maxCol; k++) {
+    for (k = minCol; k <= maxCol; k++) {
       printf("----");
     }
     printf("-\n");
   }
-  for (k = minCol; k < maxCol; k++) {
+  for (k = minCol; k <= maxCol; k++) {
     if (k < 9) {
       printf("  %d ", (k+1));
     }
-    else {
+    else if (k < 99) {
       printf("  %d", (k+1));
+    }
+    else {
+      break;
     }
   }
   printf(" \n");
