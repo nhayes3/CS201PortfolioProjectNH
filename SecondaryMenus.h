@@ -80,6 +80,12 @@ void printRecentStats(int p1W, int p2W, int ppDraws, int pW, int cW, int pcDraws
     printf("| Computer Wins: %d                           |\n", cW);
   }
   else {
+    printf("| Computer Wins: %d                          |\n", cW);
+  }
+  if (pcDraws < 10) {
+    printf("| Draws: %d                                   |\n", pcDraws);
+  }
+  else {
     printf("| Draws: %d                                  |\n", pcDraws);
   }
   printf("|____________________________________________|\n");

@@ -8,26 +8,7 @@
 #include "SecondaryMenus.h"
 #include "GraphFunctions.h"
 #include "ResultChecker.h"
-
-void createBoardScreen(char** board, int rows, int cols) {
-  static int i;
-  static int j;
-  static int k;
-  for (i = 0; i < cols; i++) {
-    printf("____");
-  }
-  printf("_\n");
-  for (i = 0; i < rows; i++) {
-    for (j = 0; j < cols; j++) {
-      printf("| %c ", board[i][j]);
-    }
-    printf("|\n");
-    for (k = 0; k < cols; k++) {
-      printf("----");
-    }
-    printf("-\n");
-  }
-}
+#include "BoardHandling.h"
 
 void resetArray(char** board, int rows, int cols) {
   static int v;
@@ -72,6 +53,7 @@ int main(void) {
   bool player;
   bool newGame;
   char exit;
+  int corner;
 
   int rows, cols;
   printf("\n\t\t\tInitial Setup");
@@ -127,88 +109,121 @@ int main(void) {
     switch(menu_select) {
       case 1:
         newgame_1:
-        createBoardScreen(board, rows, cols);
-          while (1) {
-            reselect_c:
-            printf("What column would you like to play in?");
-            scanf("%d", &play_col);
-            if ((play_col < 0) || (play_col > cols)) {
-              printf("That is not a valid column to play in.\n");
-              goto reselect_c;
-            }
-            else if (board[0][play_col - 1] != ' ') {
-              printf("That column is full.\n");
-              goto reselect_c;
-            }
-            play_col--;
-            play_row = placePiece(board, rows, cols, play_col);
-            board[play_row][play_col] = 'x';
-            createBoardScreen(board, rows, cols);
-            if (checkWinningPosition2(board, rows, cols) == -10) {
-              playerWins = checkResults(playerWins, 'P');
-              printStandingsScreen(1, playerWins, compWins, compDraws);
-              printPlayAgainScreen();
-              newGame = playAgainResponse();
-              if (newGame) {
-                resetArray(board, rows, cols);
-                goto newgame_1;
-              }
-              else {
-                goto newexec;
-              }
-              break;
-            }
-            else if (checkDraw(board, rows, cols)) {
-              printf("It's a draw!\n");
-              compDraws++;
-              printStandingsScreen(1, playerWins, compWins, compDraws);
-              printPlayAgainScreen();
-              newGame = playAgainResponse();
-              if (newGame) {
-                resetArray(board, rows, cols);
-                goto newgame_1;
-              }
-              else {
-                goto newexec;
-              }
-              break;
-            }
-
-            printf("Computer thinking...\n");
-            play_col = columnDecider(board, rows, cols);
-            play_row = placePiece(board, rows, cols, play_col);
-            board[play_row][play_col] = 'o';
-            createBoardScreen(board, rows, cols);
-            if (checkWinningPosition2(board, rows, cols) == 10) {
-              compWins = checkResults(compWins, 'C');
-              printStandingsScreen(1, playerWins, compWins, compDraws);
-              printPlayAgainScreen();
-              newGame = playAgainResponse();
-              if (newGame) {
-                resetArray(board, rows, cols);
-                goto newgame_1;
-              }
-              else {
-                goto newexec;
-              }
-              break;
-            }
-            else if (checkDraw(board, rows, cols)) {
-              compDraws = checkResults(compDraws, 'D');
-              printStandingsScreen(1, playerWins, compWins, compDraws);
-              printPlayAgainScreen();
-              newGame = playAgainResponse();
-              if (newGame) {
-                resetArray(board, rows, cols);
-                goto newgame_1;
-              }
-              else {
-                goto newexec;
-              }
-              break;
-            }
+        if ((rows > 100) || (cols > 100)) {
+          printf("\nNote: After the first move, the board will be\n");
+          printf("printed in a section around each move.\n\n");
+        }
+        else if ((rows > 40) || (cols > 40)) {
+          printf("1 2\n3 4\n");
+          printf("Enter the segment of the board to print: ");
+          scanf("%d", &corner);
+          printSegmentedBoard(board, rows, cols, corner);
+        }
+        else {
+          createBoardScreen(board, rows, cols);
+        }
+        while (1) {
+          reselect_c:
+          printf("What column would you like to play in?");
+          scanf("%d", &play_col);
+          if ((play_col < 0) || (play_col > cols)) {
+            printf("That is not a valid column to play in.\n");
+            goto reselect_c;
           }
-          break;
+          else if (board[0][play_col - 1] != ' ') {
+            printf("That column is full.\n");
+            goto reselect_c;
+          }
+          play_col--;
+          play_row = placePiece(board, rows, cols, play_col);
+          board[play_row][play_col] = 'x';
+          if ((rows > 100) || (cols > 100)) {
+            printSectionedScreen(board, rows, cols, play_row, play_col);
+          }
+          else if ((rows > 40) || (cols > 40)) {
+            printSegmentedBoard(board, rows, cols, corner);
+          }
+          else {
+            createBoardScreen(board, rows, cols);
+          }
+          if (checkWinningPosition2(board, rows, cols) == -10) {
+            playerWins = checkResults(playerWins, 'P');
+            printStandingsScreen(1, playerWins, compWins, compDraws);
+            printPlayAgainScreen();
+            newGame = playAgainResponse();
+            if (newGame) {
+              resetArray(board, rows, cols);
+              goto newgame_1;
+            }
+            else {
+              goto newexec;
+            }
+            break;
+          }
+          else if (checkDraw(board, rows, cols)) {
+            printf("It's a draw!\n");
+            compDraws++;
+            printStandingsScreen(1, playerWins, compWins, compDraws);
+            printPlayAgainScreen();
+            newGame = playAgainResponse();
+            if (newGame) {
+              resetArray(board, rows, cols);
+              goto newgame_1;
+            }
+            else {
+              goto newexec;
+            }
+            break;
+          }
+          printf("Computer thinking...\n");
+          play_col = columnDecider(board, rows, cols);
+          play_row = placePiece(board, rows, cols, play_col);
+          board[play_row][play_col] = 'o';
+          if ((rows > 100) || (cols > 100)) {
+            printSectionedScreen(board, rows, cols, play_row, play_col);
+          }
+          else if ((rows > 40) || (cols > 40)) {
+            printSegmentedBoard(board, rows, cols, corner);
+          }
+          else {
+            createBoardScreen(board, rows, cols);
+          }
+          if (checkWinningPosition2(board, rows, cols) == 10) {
+            compWins = checkResults(compWins, 'C');
+            printStandingsScreen(1, playerWins, compWins, compDraws);
+            printPlayAgainScreen();
+            newGame = playAgainResponse();
+            if (newGame) {
+              resetArray(board, rows, cols);
+              goto newgame_1;
+            }
+            else {
+              goto newexec;
+            }
+            break;
+          }
+          else if (checkDraw(board, rows, cols)) {
+            compDraws = checkResults(compDraws, 'D');
+            printStandingsScreen(1, playerWins, compWins, compDraws);
+            printPlayAgainScreen();
+            newGame = playAgainResponse();
+            if (newGame) {
+              resetArray(board, rows, cols);
+              goto newgame_1;
+            }
+            else {
+              goto newexec;
+            }
+            break;
+          }
+          if (((rows > 40) && (rows <= 100)) || ((cols > 40) && (cols <= 100))) {
+            printf("1 2\n3 4\n");
+            printf("Enter the segment of the board to print: ");
+            scanf("%d", &corner);
+            printSegmentedBoard(board, rows, cols, corner);
+          }
+        }
+        break;
       case 2:
         newgame_2:
         player = 0;

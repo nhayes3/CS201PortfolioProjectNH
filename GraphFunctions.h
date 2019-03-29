@@ -17,7 +17,7 @@ int placePiece(char** board, int rows, int cols, int colPlayed) {
 }
 
 bool checkDraw(char** board, int rows, int cols) {
-  static int d;
+  int d;
   int flag = 0;
   for (d = 0; d < cols; d++) {
     if (board[0][d] != ' '){
@@ -90,14 +90,12 @@ int checkWinningPosition2(char** board, int rows, int cols) {
   return 0;
 }
 
-//increase efficiency
-//start at position [rows][cols]
-//run until an entire row is blank
-
 int calculateBoardScore(char** board, int rows, int cols) {
   int h;
   int u;
   int tracker = 0;
+
+  //printf("meme");
 
   for (h = 0; h < rows; h++) {
     for (u = 0; u < cols; u++) {
@@ -139,15 +137,6 @@ int calculateBoardScore(char** board, int rows, int cols) {
       }
     }
   }
-  if (checkWinningPosition2(board, rows, cols) == 10) {
-    tracker += 10000;
-  }
-  else if (checkWinningPosition2(board, rows, cols) == -10) {
-    tracker -= 10000;
-  }
-  else if (checkDraw(board, rows, cols)) {
-    tracker = 0;
-  }
   return tracker;
 }
 
@@ -156,7 +145,7 @@ int negamax(char** board, int rows, int cols, bool player, int depth) {//, int b
   int bestrow;
   int bestCol;
 
-  if (depth == 2) {
+  if (depth >= 2) {
     return calculateBoardScore(board, rows, cols);
   }
   else if (checkDraw(board, rows, cols)) {
@@ -170,7 +159,8 @@ int negamax(char** board, int rows, int cols, bool player, int depth) {//, int b
       bestrow = placePiece(board, rows, cols, h);
       if (player) {
         board[bestrow][h] = 'o';
-        int score = -negamax(board, rows, cols, !player, depth++);//calculateBoardScore(board, rows, cols);
+        ++depth;
+        int score = -negamax(board, rows, cols, !player, depth);//calculateBoardScore(board, rows, cols);
         //printf(">Computer @ Depth = %d plays in %d with %d score.\n", depth, h, score);
         if (score > bestScore) {
           bestScore = score;
@@ -186,7 +176,8 @@ int negamax(char** board, int rows, int cols, bool player, int depth) {//, int b
       }
       else if (!player) {
         board[bestrow][h] = 'x';
-        int score = -negamax(board, rows, cols, !player, depth++);//calculateBoardScore(board, rows, cols);
+        ++depth;
+        int score = -negamax(board, rows, cols, !player, depth);//calculateBoardScore(board, rows, cols);
         //printf(">Player @ Depth = %d plays in %d with %d score.\n", depth, h, score);
         if (score > bestScore) {
           bestScore = score;
