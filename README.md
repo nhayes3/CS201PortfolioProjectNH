@@ -101,4 +101,14 @@ winning position checking function.
 
 *Game Conclusion Handling*
 
+&ensp;&ensp;&ensp;&ensp;Once one of the win or draw checking functions evaluates to true, the program then executes two functions.
+First, it prints out the win/draw statistics of that sequence of games. Then, it prompts the player to play again. If the user
+inputs 'Y'/'y', the win/draw statistics are maintained, and a new game is started. If the user inputs 'N'/'n', the win/draw
+statistics are copied to other variables, which are maintained in the menu option covered in the next section, **Recent Statistics**.
+Then, the program exits to the main menu, letting the user pick between the options again. This user input is once again checked
+for incorrect input, preventing loops or unintended output from occuring if the user enters incorrect characters, or strings of
+characters.
+
+**Recent Statistics**
+
 
