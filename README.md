@@ -5,4 +5,4 @@
 
 **Startup Procedure**
 
-  On first use of this program, run `make` 
+&ensp;On first use of this program, run `make` 
