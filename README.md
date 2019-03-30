@@ -78,4 +78,26 @@ the program goes through the process described two sections below, *Game Conclus
 
 *Board Size Handling*
 
+&ensp;&ensp;&ensp;&ensp;Given the ASCII-based interface of this program, large board sizes cannot be printed in their entirety without
+very poor formatting. As a result, this program uses three different functions, with each one corresponding to a different size range,
+in order to display the board in a readable way, even if the entire board is never displayed. For boards sized with both dimensions larger than 4 but smaller than 40, the entire
+board is printed, with ASCII characters surrounding the contents of the board array. For very small monitors, this may still cause
+formatting issues, but for the standard sizes that this program was tested on, the entire Connect Four board will be displayed
+without any awkward formatting. For boards sized with either dimension larger than 40 but both smaller than 100, the user will be prompted to pick which section of the board
+they would like to view. The board is broken up into four segments, each representing a "corner" of the board. User input is accepted,
+with '1' corresponding to the top left of the board (0 to half of the columns and 0 to half of the rows), '2' corresponding to the
+top right of the board (half of the columns to the total columns and 0 to half of the rows), '3' corresponding to the bottom left
+of the board (0 to half of the columns and half of the rows to the total rows), and '4' corresponding to the bottom right of the
+board (half of the columns to the total columns and half of the rows to the total rows). Of course, error checking is done for this
+input as well. For boards sized with either dimension larger than 100, the user will be prompted to pick a column to play in without
+being able to see the board, for their first move only. After this, the board handling function will print a subsection of the board,
+corresponding to 20 spaces in every cardinal direction from the piece that was just played. To help the player accurately input their
+move in large boards, column numbers from 1 to 99 are displayed beneath the column they correspond to; due to the limitations of the
+ASCII-based interface, numbers larger than three digits are not displayed. For this final board display function, if statements
+protect the loops as they search 20 spaces in cardinal directions, so as to prevent the function from accessing the array out of bounds.
+This is true for other functions that traverse the array as well, such as the board scoring function for the computer algorithm, and the
+winning position checking function.
+
+*Game Conclusion Handling*
+
 
