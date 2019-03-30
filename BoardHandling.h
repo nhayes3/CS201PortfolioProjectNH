@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <math.h>
 
+/*
+ * createBoardScreen function with void return type and three parameters
+ * This function prints the board array's contents, sectioned off to
+ * resemble a Connect Four board. It is only called when the number of rows
+ * and columns is less than 40, so as to properly display boards of smaller
+ * sizes. It also prints column numbers underneath each column.
+ */
 void createBoardScreen(char** board, int rows, int cols) {
   int i;
   int j;
@@ -30,6 +37,14 @@ void createBoardScreen(char** board, int rows, int cols) {
   printf(" \n");
 }
 
+/*
+ * printSegmentedBoard function with void return type and four parameters
+ * This function prints the board array's contents, sectioned off to resemble
+ * a Connect Four game. Depending on which segment is passed to this function,
+ * it will print the corresponding fourth of the board. It calculates half
+ * of the column and row count, using that value to prevent accessing the array
+ * out of bounds.
+ */
 void printSegmentedBoard(char** board, int rows, int cols, int segment) {
   int x;
   int y;
@@ -146,6 +161,16 @@ void printSegmentedBoard(char** board, int rows, int cols, int segment) {
   }
 }
 
+/*
+ * printSectionedScreen function with void return type and five parameters
+ * This function prints the board's array contents, with surrounded characters
+ * to emulate a Connect Four board. It runs through multiple for loops to
+ * determine how far it can go in every direction from the most recent move made
+ * without accessing the array out of bounds, then prints a board consisting of
+ * a subset of the larger board, with a maximum of 20 spaces in every direction
+ * from the last move made. This function is called for boards with dimensions
+ * larger than 100 in either direction.
+ */
 void printSectionedScreen(char** board, int rows, int cols, int nearRow, int nearCol) {
   int q;
   int flag = 0;
