@@ -2,7 +2,7 @@
 # <p align = "center">Connect Four Instructions</p>
 ## <p align = "center">CS 201</p>
 #### <p align = "center">Nathan Hayes - 3/30/19</p>
-#### <p align = "center">Github User: nhayes3   Github ID: 48812998</p>
+#### <p align = "center">Github User: nhayes3&ensp;&ensp;&ensp;Github ID: 48812998</p>
 
 **Setup Procedure**
 
