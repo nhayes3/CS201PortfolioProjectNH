@@ -4,4 +4,5 @@
 #### <p align = "center">Nathan Hayes - 3/30/19</p> 
 
 **Startup Procedure**
+
   On first use of this program, run `make` 
