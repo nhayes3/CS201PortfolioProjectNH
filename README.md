@@ -56,4 +56,26 @@ variation of the minimax algorithm, a popular algorithm used for traversing all 
 advantage of the two-dimensional array data structure by building a graph out of all possible positions, oscillating between
 player and computer moves to simulate all possible future positions to a specified depth. This algorithm is somewhat inefficient
 without other algorithms to help store data, which is why the first two cases and a depth limit are employed. The variation of this
-minimax algorithm used is based off of [an algorithm designed by Pascal Pons](http://blog.gamesolver.org/solving-connect-four/03-minmax/). 
+minimax algorithm used is based off of [an algorithm designed by Pascal Pons](http://blog.gamesolver.org/solving-connect-four/03-minmax/). Once it reaches a certain depth, it evaluates the score of each position, which form the leaves of the constructed tree.
+This score is determined by another function, which assigns points based off of the number of pieces each player has, as well as
+how many of those pieces are connected. It interprets the optimal move as a move which minimizes the number of two- and three-in-a-row
+pieces the player has, while maximizing the number of two- and three-in-a-row pieces the computer has. The minimax algorithm then
+returns the column that corresponds to the maximum leaf score found, and the main function then places the piece accordingly, passing
+the move back to the player. Of course, whenever the move is passed between player and computer, the main function also calls functions
+to check if either player has won, or if the board is full and a draw has been reached. Specifications on these functions can be
+found in the comments of the source code. The description of what happens once a game is completed can be found three sections down,
+in *Game Conclusion Handling*.
+
+**Player vs Player**
+
+&ensp;&ensp;&ensp;&ensp;This option is accessed similarly to the description of **Player vs Computer** above, with user input of '2'.
+The same error checking on the input occurs, and the board is then printed in a way dependent on the dimensions, as described in the
+next section, *Board Size Handling*. This gamemode uses a player boolean variable to determine whether it is Player 1 or Player 2 to
+move, with false corresponding to Player 1 and true corresponding to Player 2. It prompts the appropriate player to move, and then
+accepts user input with the same process and error checking as described in **Player vs Computer**, paragraph 2. It also checks if
+either player has won or if the board is full and the game is a draw after each move. Once again, when the game is completed,
+the program goes through the process described two sections below, *Game Conclusion Handling*.
+
+*Board Size Handling*
+
+
