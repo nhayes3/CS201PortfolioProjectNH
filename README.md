@@ -111,4 +111,15 @@ characters.
 
 **Recent Statistics**
 
+&ensp;&ensp;&ensp;&ensp;This option is accessed similarly to the process described at the start of **Player vs Computer**, with user
+input of '3'. It displays all of the win/draw statistics stored during the duration of the entire program. This allows the user to
+see their total number of wins, losses, or draws against either the computer or another player, in addition to being able to view
+those same statistics for only a sequence of games after each game. User input is used to exit this screen and return to the main
+selection menu as well, with similar error checking for inputs that are not 'E' or 'e'.
+
+**Exit Program**
+
+&ensp;&ensp;&ensp;&ensp;This option is accessed similar to the process described at the start of **Player vs Computer**, with user
+input of '4'. It simply ends program execution.
+
 
