@@ -124,7 +124,7 @@ input of '4'. It simply ends program execution.
 
 **Youtube Video Overview**
 
-&ensp;&ensp;&ensp;&ensp;This video briefly shows the files included in the program and demonstrates proper execution of all the
-functionality included in this program. 
+&ensp;&ensp;&ensp;&ensp;[This video](https://www.youtube.com/watch?v=adW6XKbHWNE) briefly shows the files included in the program and
+demonstrates proper execution of all the functionality included in this program. 
 
 <p align = "center"><a href="http://www.youtube.com/watch?feature=player_embedded&v=adW6XKbHWNE" target="_blank"><img src="http://img.youtube.com/vi/adW6XKbHWNE/0.jpg" alt="preview" width="240" height="180" border="10" /></a></p>
