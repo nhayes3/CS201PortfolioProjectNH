@@ -122,4 +122,7 @@ selection menu as well, with similar error checking for inputs that are not 'E' 
 &ensp;&ensp;&ensp;&ensp;This option is accessed similar to the process described at the start of **Player vs Computer**, with user
 input of '4'. It simply ends program execution.
 
+**Youtube Video Overview**
 
+&ensp;&ensp;&ensp;&ensp;This video briefly shows the files included in the program and demonstrates proper execution of all the
+functionality included in this program. <a href="http://www.youtube.com/watch?feature=player_embedded&v=adW6XKbHWNE" target="_blank"><img src="http://img.youtube.com/vi/adW6XKbHWNE/0.jpg" alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
