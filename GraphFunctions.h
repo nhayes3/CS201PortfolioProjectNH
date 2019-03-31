@@ -276,7 +276,6 @@ int columnDecider(char** board, int rows, int cols) {
   }
 
   bestCol = findOptimalPosition(board, rows, cols, 1, 0);    //finds column that reaches optimal position
-  printf("%d\n", bestCol);
 
   return bestCol;
 }
