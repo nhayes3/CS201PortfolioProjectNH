@@ -1,6 +1,6 @@
 # <p align = "center">Portfolio Project</p>
 # <p align = "center">Connect Four Instructions</p>
-## <p align = "center">CS 201</p>
+## <p align = "center">CS 201&ensp;-&ensp;Dr. Monica Anderson Herzog</p>
 #### <p align = "center">Nathan Hayes - 3/30/19</p>
 #### <p align = "center">Github User: nhayes3&ensp;&ensp;&ensp;Github ID: 48812998</p>
 
